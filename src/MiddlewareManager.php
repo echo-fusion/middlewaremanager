@@ -29,7 +29,7 @@ final class MiddlewareManager implements MiddlewareManagerInterface
     private function initialPipeline(): void
     {
         if (!$this->middlewarePipeline->isPipeLineEmpty()) {
-            throw new MiddlewareException('Middleware pipeline is already initialized');
+            $this->middlewarePipeline->makePipelineEmpty();
         }
 
         foreach ($this->coreMiddlewares as $middlewareFQDN) {

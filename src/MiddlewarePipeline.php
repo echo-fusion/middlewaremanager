@@ -32,6 +32,11 @@ class MiddlewarePipeline implements MiddlewareInterface, MiddlewarePipelineInter
         return $this->pipeline->isEmpty();
     }
 
+    public function makePipelineEmpty(): void
+    {
+        $this->pipeline = new SplQueue();
+    }
+
     public function add(MiddlewareInterface $middleware): void
     {
         $this->pipeline->enqueue($middleware);
