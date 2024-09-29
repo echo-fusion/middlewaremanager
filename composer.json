@@ -39,7 +39,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "EchoFusion\\MiddlewareManager\\Test\\": "tests"
+            "EchoFusion\\MiddlewareManager\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -47,6 +47,7 @@
             "@cs-fix","@phpunit"
         ],
         "phpunit": "vendor/bin/phpunit",
+        "phpunit-coverage": "vendor/bin/phpunit --coverage-text",
         "cs-fix": "php-cs-fixer fix --config=.php-cs-fixer.dist.php",
         "cs-check": "php-cs-fixer fix --dry-run --diff",
         "analyze": "psalm --show-info=false --no-cache --no-progress"
