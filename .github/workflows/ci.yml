@@ -27,7 +27,7 @@ jobs:
 
       - name: Check coverage percentage
         run: |
-          coverage=$(composer phpunit-coverage | grep -Po '(?<=Lines\s+:\s+)[0-9]+') 
+          coverage=$(composer phpunit-coverage | awk '/Lines/ {print $4}' | tr -d '%') 
           if [ "$coverage" -lt 90 ]; then
             echo "Code coverage is below 90% ($coverage%). Pull request cannot be accepted."
             exit 1
