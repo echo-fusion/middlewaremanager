@@ -131,8 +131,8 @@ $ composer test
 ```
 
 ## Credits
-
-- [Amir Shadanfar](https://github.com/amir-shadanfar)
+Developed and maintained by [Amir Shadanfar](https://github.com/amir-shadanfar).  
+Connect on [LinkedIn](https://www.linkedin.com/in/amir-shadanfar).
 
 ## License
 
