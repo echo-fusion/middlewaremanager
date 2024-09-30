@@ -43,5 +43,6 @@
         "cs-check": "php-cs-fixer fix --dry-run --diff",
         "analyze": "psalm --show-info=false --no-cache --no-progress"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
