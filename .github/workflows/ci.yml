@@ -11,15 +11,25 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
+          tools: composer, phpunit
 
       - name: Install dependencies
         run: composer install --no-progress --no-suggest --prefer-dist
 
-      - name: Run tests
-        run: composer test
+      - name: Run PHPUnit tests with coverage
+        run: composer phpunit-coverage
+
+      - name: Check coverage percentage
+        run: |
+          coverage=$(composer phpunit-coverage | awk '/Lines/ {print $4}' | tr -d '%') 
+          if [ "$coverage" -lt 90 ]; then
+            echo "Code coverage is below 90% ($coverage%). Pull request cannot be accepted."
+            exit 1
+          fi
+        shell: bash
