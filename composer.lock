@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f889c23d2f2dde952708357b3d46e89d",
+    "content-hash": "3bfb1477227b23d7ac99be0d52387c5e",
     "packages": [
         {
             "name": "guzzlehttp/psr7",
@@ -1057,11 +1057,17 @@
         },
         {
             "name": "echo-fusion/codestandard",
-            "version": "0.x-dev",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/echo-fusion/codestandard.git",
+                "reference": "3e03843f0aa4026d79c1c7fa3e84e94b6cf8f076"
+            },
             "dist": {
-                "type": "path",
-                "url": "../codestandard",
-                "reference": "39ccf676c7528912885a74235a666dd0d249577e"
+                "type": "zip",
+                "url": "https://api.github.com/repos/echo-fusion/codestandard/zipball/3e03843f0aa4026d79c1c7fa3e84e94b6cf8f076",
+                "reference": "3e03843f0aa4026d79c1c7fa3e84e94b6cf8f076",
+                "shasum": ""
             },
             "require": {
                 "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
@@ -1076,17 +1082,10 @@
                     "EchoFusion\\CodeStandard\\": "src/"
                 }
             },
-            "scripts": {
-                "analyze": [
-                    "psalm --no-cache --no-progress --show-info=false"
-                ],
-                "cs-fix": [
-                    "php-cs-fixer fix"
-                ],
-                "cs-check": [
-                    "php-cs-fixer fix --dry-run --diff"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
                     "name": "Amir Shadanfar",
@@ -1094,10 +1093,11 @@
                 }
             ],
             "description": "This project contains the code standard for echoFusion framework",
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/echo-fusion/codestandard/issues",
+                "source": "https://github.com/echo-fusion/codestandard/tree/v1.0.1"
+            },
+            "time": "2024-09-30T13:30:17+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -1315,12 +1315,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "b0892ff3d2a0fa32c8d1e930d05a41eb75e5bc66"
+                "reference": "fa0938fd666613716a8f12b72197289d369166ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/b0892ff3d2a0fa32c8d1e930d05a41eb75e5bc66",
-                "reference": "b0892ff3d2a0fa32c8d1e930d05a41eb75e5bc66",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/fa0938fd666613716a8f12b72197289d369166ba",
+                "reference": "fa0938fd666613716a8f12b72197289d369166ba",
                 "shasum": ""
             },
             "require": {
@@ -1411,7 +1411,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-09-27T14:23:02+00:00"
+            "time": "2024-09-30T12:51:33+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -1531,12 +1531,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "6de6ede1cb2fdff2837c5c92bc13263b5cb42d9e"
+                "reference": "715f4d25e225bc47b293a8b997fe6ce99bf987d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/6de6ede1cb2fdff2837c5c92bc13263b5cb42d9e",
-                "reference": "6de6ede1cb2fdff2837c5c92bc13263b5cb42d9e",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/715f4d25e225bc47b293a8b997fe6ce99bf987d2",
+                "reference": "715f4d25e225bc47b293a8b997fe6ce99bf987d2",
                 "shasum": ""
             },
             "require": {
@@ -1579,7 +1579,7 @@
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
                 "source": "https://github.com/nikic/PHP-Parser/tree/4.x"
             },
-            "time": "2024-09-21T13:58:16+00:00"
+            "time": "2024-09-29T15:01:53+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -2249,12 +2249,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "f928edda875630214710a8e62d6f0e4358e5dc21"
+                "reference": "afe194425e5fbbaa2314f6f845f79fbeb8fa8cb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/f928edda875630214710a8e62d6f0e4358e5dc21",
-                "reference": "f928edda875630214710a8e62d6f0e4358e5dc21",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/afe194425e5fbbaa2314f6f845f79fbeb8fa8cb7",
+                "reference": "afe194425e5fbbaa2314f6f845f79fbeb8fa8cb7",
                 "shasum": ""
             },
             "require": {
@@ -2344,7 +2344,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-27T07:01:02+00:00"
+            "time": "2024-09-29T06:20:47+00:00"
         },
         {
             "name": "psr/event-dispatcher",
@@ -4023,12 +4023,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "dfd8158ec651afd40cf30f14af3b96ab5df76c18"
+                "reference": "c8b54045867f124cf19b7c905d107e73a2a1df8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/dfd8158ec651afd40cf30f14af3b96ab5df76c18",
-                "reference": "dfd8158ec651afd40cf30f14af3b96ab5df76c18",
+                "url": "https://api.github.com/repos/symfony/console/zipball/c8b54045867f124cf19b7c905d107e73a2a1df8b",
+                "reference": "c8b54045867f124cf19b7c905d107e73a2a1df8b",
                 "shasum": ""
             },
             "require": {
@@ -4108,7 +4108,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-27T08:52:18+00:00"
+            "time": "2024-09-28T12:51:41+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -5533,8 +5533,7 @@
         "guzzlehttp/psr7": 20,
         "psr/http-server-middleware": 20,
         "vimeo/psalm": 20,
-        "friendsofphp/php-cs-fixer": 20,
-        "echo-fusion/codestandard": 20
+        "friendsofphp/php-cs-fixer": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
