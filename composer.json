@@ -44,7 +44,7 @@
     },
     "scripts": {
         "test": [
-            "@cs-fix","@phpunit"
+            "@cs-check","@analyze","@phpunit"
         ],
         "phpunit": "vendor/bin/phpunit",
         "phpunit-coverage": "vendor/bin/phpunit --coverage-text",
