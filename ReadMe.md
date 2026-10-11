@@ -126,6 +126,7 @@ function (ContainerInterface $container, ServerRequestInterface $request, Middle
 ## Testing
 
 Testing includes PHPUnit and PHPStan (Level 7).
+
 ``` bash
 $ composer test
 ```
