@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "echo-fusion/contracts",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/echo-fusion/contracts.git",
-                "reference": "e4224c4b4037959abc6ac17cb14ac39a9bab9185"
+                "reference": "231428972b6f700428ad63e7ed4c16b22d6a313a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/echo-fusion/contracts/zipball/e4224c4b4037959abc6ac17cb14ac39a9bab9185",
-                "reference": "e4224c4b4037959abc6ac17cb14ac39a9bab9185",
+                "url": "https://api.github.com/repos/echo-fusion/contracts/zipball/231428972b6f700428ad63e7ed4c16b22d6a313a",
+                "reference": "231428972b6f700428ad63e7ed4c16b22d6a313a",
                 "shasum": ""
             },
             "require": {
@@ -53,9 +53,9 @@
             ],
             "support": {
                 "issues": "https://github.com/echo-fusion/contracts/issues",
-                "source": "https://github.com/echo-fusion/contracts/tree/v1.2.0"
+                "source": "https://github.com/echo-fusion/contracts/tree/v1.2.1"
             },
-            "time": "2026-10-11T20:35:11+00:00"
+            "time": "2026-10-11T21:11:50+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -5547,15 +5547,15 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "friendsofphp/php-cs-fixer": 20,
         "psr/http-server-middleware": 20,
-        "vimeo/psalm": 20,
-        "friendsofphp/php-cs-fixer": 20
+        "vimeo/psalm": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
