@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
+use EchoFusion\Contracts\MiddlewareManager\MiddlewarePipelineInterface;
 use EchoFusion\MiddlewareManager\MiddlewareManager;
 use EchoFusion\MiddlewareManager\MiddlewareManagerFactory;
-use EchoFusion\MiddlewareManager\MiddlewarePipelineInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 

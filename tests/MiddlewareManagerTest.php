@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use EchoFusion\Contracts\MiddlewareManager\MiddlewarePipelineInterface;
 use EchoFusion\MiddlewareManager\MiddlewareException;
 use EchoFusion\MiddlewareManager\MiddlewareManager;
 use EchoFusion\MiddlewareManager\MiddlewarePipeline;
-use EchoFusion\MiddlewareManager\MiddlewarePipelineInterface;
 use EchoFusion\MiddlewareManager\Tests\Dummy\DummyMiddleware;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;

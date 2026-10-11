@@ -4,8 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd3e99966dbfe3fa5816f830f8340617",
+    "content-hash": "622cd7252b278a619580a71eba03a74a",
     "packages": [
+        {
+            "name": "echo-fusion/contracts",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/echo-fusion/contracts.git",
+                "reference": "e4224c4b4037959abc6ac17cb14ac39a9bab9185"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/echo-fusion/contracts/zipball/e4224c4b4037959abc6ac17cb14ac39a9bab9185",
+                "reference": "e4224c4b4037959abc6ac17cb14ac39a9bab9185",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
+                "psr/container": "^2.0",
+                "psr/http-message": "^2.0@dev",
+                "psr/http-server-middleware": "^1.0@dev"
+            },
+            "require-dev": {
+                "echo-fusion/codestandard": "^1.0",
+                "friendsofphp/php-cs-fixer": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EchoFusion\\Contracts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Amir Shadanfar",
+                    "email": "a.shadanfar.it@gmail.com"
+                }
+            ],
+            "description": "Core interfaces and contracts for the EchoFusion framework, providing shared, standardized interfaces for cross-package interoperability and modular design.",
+            "keywords": [
+                "contracts",
+                "echoFusion"
+            ],
+            "support": {
+                "issues": "https://github.com/echo-fusion/contracts/issues",
+                "source": "https://github.com/echo-fusion/contracts/tree/v1.2.0"
+            },
+            "time": "2026-10-11T20:35:11+00:00"
+        },
         {
             "name": "guzzlehttp/psr7",
             "version": "2.7.0",
