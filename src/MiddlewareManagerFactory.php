@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace EchoFusion\MiddlewareManager;
 
+use EchoFusion\Contracts\MiddlewareManager\MiddlewareManagerInterface;
+use EchoFusion\Contracts\MiddlewareManager\MiddlewarePipelineInterface;
 use Psr\Container\ContainerInterface;
 use Webmozart\Assert\Assert;
 

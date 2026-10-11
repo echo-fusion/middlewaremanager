@@ -94,7 +94,7 @@ Note: Don't forget to instantiate below injected dependencies in your container.
 ```php
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use EchoFusion\MiddlewareManager\MiddlewarePipelineInterface;
+use EchoFusion\Contracts\MiddlewareManager\MiddlewarePipelineInterface;
 
 function (ContainerInterface $container, ServerRequestInterface $request, MiddlewarePipelineInterface $pipeline) {
 
