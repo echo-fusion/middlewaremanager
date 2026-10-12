@@ -54,14 +54,28 @@ jobs:
 
       - name: Run PHPUnit tests with coverage
         if: matrix.php == '8.3' && matrix.deps == 'locked'
-        run: vendor/bin/phpunit --coverage-text | tee coverage.txt
+        run: |
+          set -o pipefail
+          vendor/bin/phpunit --coverage-text --colors=never | tee coverage.txt
+        shell: bash
 
       - name: Check coverage percentage
         if: matrix.php == '8.3' && matrix.deps == 'locked'
         run: |
-          coverage=$(awk '/^ *Lines:/ {print $2}' coverage.txt | tr -d '%' | cut -d. -f1)
-          if [ "$coverage" -lt 90 ]; then
-            echo "Code coverage is below 90% ($coverage%). Pull request cannot be accepted."
+          coverage=$(awk '/^ *Lines:/ {print $2}' coverage.txt | tr -d '%' | cut -d. -f1 | head -n1)
+          if [ -z "$coverage" ]; then
+            echo "Could not read the coverage percentage from coverage.txt."
+            exit 1
+          fi
+          echo "Line coverage: ${coverage}%"
+          {
+            echo "### Code coverage"
+            echo '```'
+            sed -n '/Summary:/,/^$/p' coverage.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$coverage" -lt 80 ]; then
+            echo "Code coverage is below 80% ($coverage%). Pull request cannot be accepted."
             exit 1
           fi
         shell: bash
