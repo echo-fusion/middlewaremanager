@@ -9,12 +9,20 @@ use EchoFusion\Contracts\MiddlewareManager\MiddlewarePipelineInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use function in_array;
 use function sprintf;
 
 final class MiddlewareManager implements MiddlewareManagerInterface
 {
+    /**
+     * The middleware objects this manager put in the pipeline, by class, so remove() can take out the same objects.
+     *
+     * @var array<class-string, list<MiddlewareInterface>>
+     */
+    private array $added = [];
+
     /**
      * @param class-string[] $coreMiddlewares
      * @param class-string[] $routeMiddlewares
@@ -35,9 +43,7 @@ final class MiddlewareManager implements MiddlewareManagerInterface
         }
 
         foreach ($this->coreMiddlewares as $middlewareFQDN) {
-            $this->middlewarePipeline->add(
-                $this->container->get($middlewareFQDN)
-            );
+            $this->addToPipeline($middlewareFQDN);
         }
     }
 
@@ -48,17 +54,34 @@ final class MiddlewareManager implements MiddlewareManagerInterface
                 throw new MiddlewareException(sprintf('Adding %s middleware is not a valid class', $middleware));
             }
 
-            $this->middlewarePipeline->add(
-                $this->container->get($middleware)
-            );
+            $this->addToPipeline($middleware);
         }
+    }
+
+    /**
+     * @param class-string $middlewareFQDN
+     *
+     * @throws MiddlewareException when the container does not return a PSR-15 middleware
+     */
+    private function addToPipeline(string $middlewareFQDN): void
+    {
+        $middleware = $this->container->get($middlewareFQDN);
+        if (!$middleware instanceof MiddlewareInterface) {
+            throw new MiddlewareException(sprintf('%s is not a PSR-15 middleware (it must implement %s).', $middlewareFQDN, MiddlewareInterface::class));
+        }
+
+        $this->middlewarePipeline->add($middleware);
+        $this->added[$middlewareFQDN][] = $middleware;
     }
 
     public function remove(string $middlewareFQDN): void
     {
-        $this->middlewarePipeline->remove(
-            $this->container->get($middlewareFQDN)
-        );
+        // the container may build a new object on every get(), so remove the objects that were added
+        foreach ($this->added[$middlewareFQDN] ?? [] as $middleware) {
+            $this->middlewarePipeline->remove($middleware);
+        }
+
+        unset($this->added[$middlewareFQDN]);
     }
 
     public function dispatch(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
