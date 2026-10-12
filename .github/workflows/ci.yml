@@ -7,27 +7,59 @@ on:
 
 jobs:
   test:
+    name: PHP ${{ matrix.php }} / ${{ matrix.deps }}
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.1', '8.2', '8.3']
+        deps: ['locked', 'lowest', 'highest']
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
-          tools: composer, phpunit
+          php-version: ${{ matrix.php }}
+          tools: composer
+          coverage: ${{ (matrix.php == '8.3' && matrix.deps == 'locked') && 'xdebug' || 'none' }}
 
-      - name: Install dependencies
-        run: composer install --no-progress --no-suggest --prefer-dist
+      - name: Validate composer.json and composer.lock
+        run: composer validate --check-lock
+
+      - name: Install dependencies (locked)
+        if: matrix.deps == 'locked'
+        run: composer install --no-progress --prefer-dist
+
+      - name: Install dependencies (lowest contracts)
+        if: matrix.deps == 'lowest'
+        run: composer update echo-fusion/contracts --prefer-lowest --no-progress --prefer-dist
+
+      - name: Install dependencies (highest contracts)
+        if: matrix.deps == 'highest'
+        run: composer update echo-fusion/contracts --no-progress --prefer-dist
+
+      - name: Check code style
+        run: composer cs-check
+
+      - name: Static analysis
+        run: composer analyze
+
+      - name: Run PHPUnit tests
+        if: matrix.php != '8.3' || matrix.deps != 'locked'
+        run: composer phpunit
 
       - name: Run PHPUnit tests with coverage
-        run: composer phpunit-coverage
+        if: matrix.php == '8.3' && matrix.deps == 'locked'
+        run: vendor/bin/phpunit --coverage-text | tee coverage.txt
 
       - name: Check coverage percentage
+        if: matrix.php == '8.3' && matrix.deps == 'locked'
         run: |
-          coverage=$(composer phpunit-coverage | awk '/Lines/ {print $4}' | tr -d '%') 
+          coverage=$(awk '/^ *Lines:/ {print $2}' coverage.txt | tr -d '%' | cut -d. -f1)
           if [ "$coverage" -lt 90 ]; then
             echo "Code coverage is below 90% ($coverage%). Pull request cannot be accepted."
             exit 1

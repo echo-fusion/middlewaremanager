@@ -34,6 +34,11 @@
             "EchoFusion\\MiddlewareManager\\Tests\\": "tests"
         }
     },
+    "config": {
+        "platform": {
+            "php": "8.1.0"
+        }
+    },
     "scripts": {
         "test": [
             "@cs-check","@analyze","@phpunit"
