@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da30831d8208ae683b40d1275f18eb34",
+    "content-hash": "1108d5c7c77d817cb0b963110f64fca1",
     "packages": [
         {
             "name": "echo-fusion/contracts",
-            "version": "v1.2.1",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/echo-fusion/contracts.git",
-                "reference": "231428972b6f700428ad63e7ed4c16b22d6a313a"
+                "reference": "e732d8955b8ae0ee822ab1932711a2f072f02b16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/echo-fusion/contracts/zipball/231428972b6f700428ad63e7ed4c16b22d6a313a",
-                "reference": "231428972b6f700428ad63e7ed4c16b22d6a313a",
+                "url": "https://api.github.com/repos/echo-fusion/contracts/zipball/e732d8955b8ae0ee822ab1932711a2f072f02b16",
+                "reference": "e732d8955b8ae0ee822ab1932711a2f072f02b16",
                 "shasum": ""
             },
             "require": {
@@ -53,9 +53,9 @@
             ],
             "support": {
                 "issues": "https://github.com/echo-fusion/contracts/issues",
-                "source": "https://github.com/echo-fusion/contracts/tree/v1.2.1"
+                "source": "https://github.com/echo-fusion/contracts/tree/v1.8.0"
             },
-            "time": "2026-10-11T21:11:50+00:00"
+            "time": "2026-10-12T10:51:11+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -1569,16 +1569,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "dev-master",
+            "version": "v3.95.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "4a935fc9fbccafe291deea088f41204eb2290cb0"
+                "reference": "1d0c68ee5f37446d8ad5970b82384cd1bb0a3317"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/4a935fc9fbccafe291deea088f41204eb2290cb0",
-                "reference": "4a935fc9fbccafe291deea088f41204eb2290cb0",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/1d0c68ee5f37446d8ad5970b82384cd1bb0a3317",
+                "reference": "1d0c68ee5f37446d8ad5970b82384cd1bb0a3317",
                 "shasum": ""
             },
             "require": {
@@ -1626,7 +1626,6 @@
                 "ext-dom": "For handling output formats in XML",
                 "ext-mbstring": "For handling non-UTF8 characters."
             },
-            "default-branch": true,
             "bin": [
                 "php-cs-fixer"
             ],
@@ -1662,7 +1661,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/master"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.95.27"
             },
             "funding": [
                 {
@@ -1670,7 +1669,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-07T12:35:47+00:00"
+            "time": "2026-09-22T09:54:55+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -5623,16 +5622,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "5.x-dev",
+            "version": "5.26.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "d1806385d63fdf59d496a786e78ca39e0c8d2754"
+                "reference": "d747f6500b38ac4f7dfc5edbcae6e4b637d7add0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/d1806385d63fdf59d496a786e78ca39e0c8d2754",
-                "reference": "d1806385d63fdf59d496a786e78ca39e0c8d2754",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/d747f6500b38ac4f7dfc5edbcae6e4b637d7add0",
+                "reference": "d747f6500b38ac4f7dfc5edbcae6e4b637d7add0",
                 "shasum": ""
             },
             "require": {
@@ -5729,7 +5728,7 @@
                 "issues": "https://github.com/vimeo/psalm/issues",
                 "source": "https://github.com/vimeo/psalm"
             },
-            "time": "2025-02-16T18:38:18+00:00"
+            "time": "2024-09-08T18:53:08+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -5792,11 +5791,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "friendsofphp/php-cs-fixer": 20,
-        "psr/http-server-middleware": 20,
-        "vimeo/psalm": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

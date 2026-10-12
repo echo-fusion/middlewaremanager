@@ -1,12 +1,14 @@
 # MiddlewareManager
 
+[![CI](https://github.com/echo-fusion/middlewaremanager/actions/workflows/ci.yml/badge.svg)](https://github.com/echo-fusion/middlewaremanager/actions/workflows/ci.yml) [![Packagist](https://img.shields.io/packagist/v/echo-fusion/middlewaremanager.svg)](https://packagist.org/packages/echo-fusion/middlewaremanager) [![PHP](https://img.shields.io/badge/php-8.1%20%7C%208.2%20%7C%208.3-777bb4.svg)](https://www.php.net) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 This is a flexible package for managing middleware in PHP applications. It enables you to create a middleware pipeline, where middleware processes a request and passes it on to the next, providing a clean and organized way to handle middleware logic.
 
 This package is compliant with PSR-1, PSR-2, PSR-7 and PSR-15.
 
-## Installation
+> Part of [EchoFusion](https://github.com/echo-fusion), a modular PHP framework built from small packages.
 
-Install the package via Composer:
+## Installation
 
 ```bash
 composer require echo-fusion/middlewaremanager
@@ -14,11 +16,7 @@ composer require echo-fusion/middlewaremanager
 
 ## Requirements
 
-The following versions of PHP are supported by this version.
-
-* PHP 8.1
-* PHP 8.2
-* PHP 8.3
+* PHP 8.1, 8.2 or 8.3
 
 ## Usage
 
@@ -125,17 +123,14 @@ function (ContainerInterface $container, ServerRequestInterface $request, Middle
 
 ## Testing
 
-Testing includes PHPUnit and PHPStan (Level 7).
-
-``` bash
-$ composer test
+```bash
+composer test
 ```
 
 ## Credits
-Developed and maintained by [Amir Shadanfar](https://github.com/amir-shadanfar).  
-Connect on [LinkedIn](https://www.linkedin.com/in/amir-shadanfar).
+
+- [Amir Shadanfar](https://github.com/amir-shadanfar)
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/echo-fusion/middlewaremanager/blob/main/LICENSE) for more information.
-
+The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
