@@ -64,9 +64,11 @@ class MiddlewareManagerTest extends TestCase
     public function testRemoveMiddleware()
     {
         $this->pipeline->method('isPipeLineEmpty')->willReturn(true);
-        $this->container->method('get')->willReturn(new DummyMiddleware());
+        $added = new DummyMiddleware();
+        $this->container->method('get')->willReturn($added);
+        $this->middlewareManager->add([DummyMiddleware::class]);
 
-        $this->pipeline->expects($this->once())->method('remove')->with($this->isInstanceOf(DummyMiddleware::class));
+        $this->pipeline->expects($this->once())->method('remove')->with($this->identicalTo($added));
         $this->middlewareManager->remove(DummyMiddleware::class);
     }
 
@@ -94,5 +96,47 @@ class MiddlewareManagerTest extends TestCase
 
         $this->assertTrue($this->middlewareManager->isRouteMiddlewareValid('validMiddleware'));
         $this->assertFalse($this->middlewareManager->isRouteMiddlewareValid('invalidMiddleware'));
+    }
+
+    public function testRemoveTakesOutTheAddedObjectsEvenWhenTheContainerBuildsNewOnesEveryTime(): void
+    {
+        $pipeline = new MiddlewarePipeline();
+        $this->container->method('get')->willReturnCallback(static fn () => new DummyMiddleware());
+        $manager = new MiddlewareManager($this->container, $pipeline, [DummyMiddleware::class]);
+
+        $this->assertFalse($pipeline->isPipeLineEmpty());
+
+        $manager->remove(DummyMiddleware::class);
+
+        $this->assertTrue($pipeline->isPipeLineEmpty(), 'a fresh object from the container was compared by identity before, so nothing was removed');
+    }
+
+    public function testRemovingSeveralInstancesOfOneClass(): void
+    {
+        $pipeline = new MiddlewarePipeline();
+        $this->container->method('get')->willReturnCallback(static fn () => new DummyMiddleware());
+        $manager = new MiddlewareManager($this->container, $pipeline);
+        $manager->add([DummyMiddleware::class, DummyMiddleware::class]);
+
+        $manager->remove(DummyMiddleware::class);
+
+        $this->assertTrue($pipeline->isPipeLineEmpty());
+    }
+
+    public function testRemovingAMiddlewareThatWasNeverAddedDoesNothing(): void
+    {
+        $this->pipeline->expects($this->never())->method('remove');
+
+        $this->middlewareManager->remove(DummyMiddleware::class);
+    }
+
+    public function testTheContainerMustReturnAPsr15Middleware(): void
+    {
+        $this->container->method('get')->willReturn(new stdClass());
+
+        $this->expectException(MiddlewareException::class);
+        $this->expectExceptionMessage('is not a PSR-15 middleware');
+
+        $this->middlewareManager->add([DummyMiddleware::class]);
     }
 }
