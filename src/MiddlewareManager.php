@@ -12,6 +12,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use function in_array;
+use function is_subclass_of;
 use function sprintf;
 
 final class MiddlewareManager implements MiddlewareManagerInterface
@@ -59,16 +60,19 @@ final class MiddlewareManager implements MiddlewareManagerInterface
     }
 
     /**
+     * Adds a stand-in that builds the real middleware from the container when a request reaches it.
+     *
      * @param class-string $middlewareFQDN
      *
-     * @throws MiddlewareException when the container does not return a PSR-15 middleware
+     * @throws MiddlewareException when the class is not a PSR-15 middleware
      */
     private function addToPipeline(string $middlewareFQDN): void
     {
-        $middleware = $this->container->get($middlewareFQDN);
-        if (!$middleware instanceof MiddlewareInterface) {
+        if (!is_subclass_of($middlewareFQDN, MiddlewareInterface::class)) {
             throw new MiddlewareException(sprintf('%s is not a PSR-15 middleware (it must implement %s).', $middlewareFQDN, MiddlewareInterface::class));
         }
+
+        $middleware = new LazyMiddleware($this->container, $middlewareFQDN);
 
         $this->middlewarePipeline->add($middleware);
         $this->added[$middlewareFQDN][] = $middleware;

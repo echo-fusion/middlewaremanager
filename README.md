@@ -121,6 +121,11 @@ function (ContainerInterface $container, ServerRequestInterface $request, Middle
 }
 ```
 
+## Behaviour worth knowing
+
+* **Lazy:** `MiddlewareManager` puts a small `LazyMiddleware` stand-in in the pipeline and builds the real middleware from the container only when a request reaches it. A middleware that is never reached (because an earlier one answered) is never built, and each one is built once, not once per request. Classes that are not PSR-15 middleware are rejected when they are added.
+* **`remove()`** removes the objects that were added for that class, even if the container builds a new object on every `get()`.
+
 ## Testing
 
 ```bash
