@@ -6,15 +6,18 @@ namespace EchoFusion\MiddlewareManager;
 
 use EchoFusion\Contracts\MiddlewareManager\MiddlewareManagerInterface;
 use EchoFusion\Contracts\MiddlewareManager\MiddlewarePipelineInterface;
+use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
-use Webmozart\Assert\Assert;
+use function sprintf;
 
 class MiddlewareManagerFactory
 {
     public function __invoke(ContainerInterface $container): MiddlewareManagerInterface
     {
         $middlewarePipeline = $container->get(MiddlewarePipelineInterface::class);
-        Assert::isInstanceOf($middlewarePipeline, MiddlewarePipelineInterface::class);
+        if (!$middlewarePipeline instanceof MiddlewarePipelineInterface) {
+            throw new InvalidArgumentException(sprintf('The container entry %s must implement %s.', MiddlewarePipelineInterface::class, MiddlewarePipelineInterface::class));
+        }
 
         return new MiddlewareManager($container, $middlewarePipeline);
     }

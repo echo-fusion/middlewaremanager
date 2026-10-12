@@ -23,4 +23,15 @@ class MiddlewareManagerFactoryTest extends TestCase
 
         $this->assertInstanceOf(MiddlewareManager::class, $middlewareManager);
     }
+
+    public function testAnEntryThatIsNotAPipelineIsRejected(): void
+    {
+        $container = $this->createMock(ContainerInterface::class);
+        $container->method('get')->willReturn(new \stdClass());
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('must implement');
+
+        (new MiddlewareManagerFactory())($container);
+    }
 }
