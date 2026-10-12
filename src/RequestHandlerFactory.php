@@ -4,19 +4,22 @@ declare(strict_types=1);
 
 namespace EchoFusion\MiddlewareManager;
 
+use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Webmozart\Assert\Assert;
+use function sprintf;
 
 class RequestHandlerFactory
 {
     public function __invoke(ContainerInterface $container): RequestHandlerInterface
     {
         $responseFactory = $container->get(ResponseFactoryInterface::class);
-        Assert::isInstanceOf($responseFactory, ResponseFactoryInterface::class);
+        if (!$responseFactory instanceof ResponseFactoryInterface) {
+            throw new InvalidArgumentException(sprintf('The container entry %s must implement %s.', ResponseFactoryInterface::class, ResponseFactoryInterface::class));
+        }
 
         return new class($responseFactory) implements RequestHandlerInterface {
             public function __construct(private readonly ResponseFactoryInterface $responseFactory)

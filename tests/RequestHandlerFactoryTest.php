@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 use EchoFusion\MiddlewareManager\RequestHandlerFactory;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Webmozart\Assert\InvalidArgumentException;
 
 final class RequestHandlerFactoryTest extends TestCase
 {
