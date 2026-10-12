@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use EchoFusion\Contracts\MiddlewareManager\MiddlewarePipelineInterface;
+use EchoFusion\MiddlewareManager\LazyMiddleware;
 use EchoFusion\MiddlewareManager\MiddlewareException;
 use EchoFusion\MiddlewareManager\MiddlewareManager;
 use EchoFusion\MiddlewareManager\MiddlewarePipeline;
@@ -34,11 +35,11 @@ class MiddlewareManagerTest extends TestCase
 
         $this->pipeline->expects($this->once())->method('makePipelineEmpty');
 
-        $this->container->method('get')->willReturn(new DummyMiddleware());
+        $this->container->expects($this->never())->method('get');
 
         $this->pipeline->expects($this->once())
             ->method('add')
-            ->with(new DummyMiddleware());
+            ->with($this->callback(static fn ($m) => $m instanceof LazyMiddleware && $m->getClass() === DummyMiddleware::class));
 
         $this->middlewareManager = new MiddlewareManager($this->container, $this->pipeline, [DummyMiddleware::class]);
     }
@@ -46,9 +47,9 @@ class MiddlewareManagerTest extends TestCase
     public function testAddValidMiddleware()
     {
         $this->pipeline->method('isPipeLineEmpty')->willReturn(true);
-        $this->container->method('get')->willReturn(new DummyMiddleware());
+        $this->container->expects($this->never())->method('get');
 
-        $this->pipeline->expects($this->once())->method('add')->with($this->isInstanceOf(DummyMiddleware::class));
+        $this->pipeline->expects($this->once())->method('add')->with($this->isInstanceOf(LazyMiddleware::class));
 
         $this->middlewareManager->add([DummyMiddleware::class]);
     }
@@ -64,11 +65,15 @@ class MiddlewareManagerTest extends TestCase
     public function testRemoveMiddleware()
     {
         $this->pipeline->method('isPipeLineEmpty')->willReturn(true);
-        $added = new DummyMiddleware();
-        $this->container->method('get')->willReturn($added);
+        $added = null;
+        $this->pipeline->expects($this->once())->method('add')->with($this->callback(static function ($m) use (&$added) {
+            $added = $m;
+
+            return true;
+        }));
         $this->middlewareManager->add([DummyMiddleware::class]);
 
-        $this->pipeline->expects($this->once())->method('remove')->with($this->identicalTo($added));
+        $this->pipeline->expects($this->once())->method('remove')->with($this->callback(static fn ($m) => $m === $added));
         $this->middlewareManager->remove(DummyMiddleware::class);
     }
 
@@ -130,13 +135,51 @@ class MiddlewareManagerTest extends TestCase
         $this->middlewareManager->remove(DummyMiddleware::class);
     }
 
-    public function testTheContainerMustReturnAPsr15Middleware(): void
+    public function testAClassThatIsNotAMiddlewareIsRejectedWhenAdded(): void
+    {
+        $this->expectException(MiddlewareException::class);
+        $this->expectExceptionMessage('stdClass is not a PSR-15 middleware');
+
+        $this->middlewareManager->add([stdClass::class]);
+    }
+
+    public function testMiddlewareIsBuiltOnlyWhenARequestReachesIt(): void
+    {
+        $built = 0;
+        $this->container->method('get')->willReturnCallback(static function () use (&$built) {
+            ++$built;
+
+            return new DummyMiddleware();
+        });
+        $pipeline = new MiddlewarePipeline();
+        $manager = new MiddlewareManager($this->container, $pipeline, [DummyMiddleware::class]);
+        $manager->add([DummyMiddleware::class]);
+
+        $this->assertSame(0, $built, 'nothing is built while the pipeline is assembled');
+
+        $handler = new class() implements RequestHandlerInterface {
+            public function handle(ServerRequestInterface $request): ResponseInterface
+            {
+                return new \GuzzleHttp\Psr7\Response(204);
+            }
+        };
+        $response = $manager->dispatch(new \GuzzleHttp\Psr7\ServerRequest('GET', '/'), $handler);
+        $manager->dispatch(new \GuzzleHttp\Psr7\ServerRequest('GET', '/'), $handler);
+
+        $this->assertSame(204, $response->getStatusCode());
+        $this->assertSame(2, $built, 'each of the two middleware is built once, not once per request');
+    }
+
+    public function testTheContainerMustReturnAPsr15MiddlewareWhenTheRequestReachesIt(): void
     {
         $this->container->method('get')->willReturn(new stdClass());
+        $pipeline = new MiddlewarePipeline();
+        $manager = new MiddlewareManager($this->container, $pipeline, [DummyMiddleware::class]);
+
+        $handler = $this->createMock(RequestHandlerInterface::class);
 
         $this->expectException(MiddlewareException::class);
         $this->expectExceptionMessage('is not a PSR-15 middleware');
-
-        $this->middlewareManager->add([DummyMiddleware::class]);
+        $manager->dispatch(new \GuzzleHttp\Psr7\ServerRequest('GET', '/'), $handler);
     }
 }
